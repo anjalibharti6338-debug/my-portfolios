@@ -1,1 +1,478 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anjali Bharti — Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F9F8F5; --surface: #FFFFFF; --text: #1A1A18; --muted: #6B6B67;
+    --accent: #2D5BE3; --accent-light: #EEF2FD; --border: rgba(0,0,0,0.09);
+    --tag-bg: #F0EEE9; --serif: 'DM Serif Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,248,245,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem;
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.875rem; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--text); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 100px; font-size: 0.8rem !important; font-weight: 500 !important; }
+  section { padding: 6rem 2rem; max-width: 1080px; margin: 0 auto; }
+  .hero { padding-top: 7rem; padding-bottom: 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-eyebrow { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+  .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent); display: inline-block; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.6rem, 4vw, 3.5rem); line-height: 1.1; color: var(--text); margin-bottom: 1.4rem; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero p { font-size: 1.05rem; color: var(--muted); line-height: 1.75; max-width: 44ch; margin-bottom: 2rem; font-weight: 300; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--text); color: #fff; padding: 0.75rem 1.75rem; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.8; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.75rem 1.75rem; border-radius: 100px; border: 1.5px solid var(--border); text-decoration: none; font-size: 0.9rem; font-weight: 400; }
+  .hero-visual { position: relative; height: 420px; }
+  .hero-card-main { position: absolute; top: 0; right: 0; width: 88%; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 1.5rem; box-shadow: 0 4px 32px rgba(0,0,0,0.06); }
+  .mock-screen { width: 100%; height: 190px; border-radius: 12px; background: linear-gradient(145deg, #EEF2FD 0%, #E8F0FF 50%, #F5EEF8 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .mock-screen-inner { width: 80%; height: 75%; background: white; border-radius: 8px; box-shadow: 0 2px 16px rgba(45,91,227,0.12); display: flex; flex-direction: column; overflow: hidden; }
+  .mock-topbar { height: 28px; background: #F9F8F5; border-bottom: 1px solid #eee; display: flex; align-items: center; padding: 0 10px; gap: 5px; }
+  .mock-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .mock-content { flex: 1; padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; }
+  .mock-bar { height: 6px; border-radius: 3px; background: #EEF2FD; }
+  .mock-card-row { display: flex; gap: 6px; margin-top: 4px; }
+  .mock-mini-card { flex: 1; height: 36px; border-radius: 6px; background: linear-gradient(135deg,#EEF2FD,#F5EEF8); }
+  .hero-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 1.1rem; }
+  .hero-card-label { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+  .hero-card-sub { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+  .hero-badge { background: #E9FAEF; color: #1A7A44; font-size: 0.72rem; font-weight: 500; padding: 4px 10px; border-radius: 100px; }
+  .hero-card-stats { display: flex; gap: 1.2rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .stat-num { font-size: 1.1rem; font-weight: 500; color: var(--text); }
+  .stat-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .hero-card-small { position: absolute; bottom: 10px; left: 0; width: 54%; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .availability-dot { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block; box-shadow: 0 0 0 3px #D1FAE5; margin-right: 0.5rem; }
+  .availability-text { font-size: 0.8rem; color: var(--text); font-weight: 500; }
+  .availability-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3rem; }
+  .section-eyebrow { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400; color: var(--text); line-height: 1.15; }
+  .section-link { font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: 500; white-space: nowrap; }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .case-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; text-decoration: none; color: inherit; display: block; }
+  .case-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.09); }
+  .case-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .case-thumb { height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .case-card.featured .case-thumb { height: 100%; min-height: 280px; }
+  .thumb-finance { background: linear-gradient(135deg,#EEF2FD 0%,#D6E4FF 100%); }
+  .thumb-health { background: linear-gradient(135deg,#EDFAF3 0%,#C8F0DE 100%); }
+  .thumb-saas { background: linear-gradient(135deg,#FEF3E2 0%,#FDD89A 100%); }
+  .thumb-ui { width: 75%; height: 75%; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+  .thumb-ui-top { height: 32px; display: flex; align-items: center; padding: 0 12px; gap: 8px; border-bottom: 1px solid #eee; }
+  .thumb-ui-body { flex: 1; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .thumb-ui-line { height: 7px; border-radius: 4px; }
+  .thumb-ui-row { display: flex; gap: 6px; }
+  .thumb-ui-block { height: 40px; flex: 1; border-radius: 8px; }
+  .case-body { padding: 1.5rem 1.6rem; }
+  .case-tag { display: inline-block; font-size: 0.7rem; font-weight: 500; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 100px; margin-bottom: 0.8rem; }
+  .case-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 0.6rem; }
+  .case-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.1rem; }
+  .case-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .case-tags-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tag { font-size: 0.7rem; color: var(--muted); background: var(--tag-bg); padding: 2px 8px; border-radius: 100px; }
+  .case-arrow { color: var(--muted); font-size: 1rem; transition: transform 0.2s; }
+  .case-card:hover .case-arrow { transform: translateX(4px); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+  .about-photo-wrap { position: relative; }
+  .about-photo { width: 100%; aspect-ratio: 4/5; border-radius: 20px; background: linear-gradient(145deg, #EEF2FD 0%, #F5EEF8 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .about-exp-badge { position: absolute; bottom: 1.5rem; right: -1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 0.9rem 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .about-exp-num { font-family: var(--serif); font-size: 2rem; color: var(--text); }
+  .about-exp-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .about-content h2 { font-family: var(--serif); font-size: clamp(1.8rem,3vw,2.4rem); font-weight: 400; line-height: 1.2; margin-bottom: 1.4rem; }
+  .about-content p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; font-weight: 300; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .skill-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; }
+  .skill-label { font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+  .skill-bar-track { height: 4px; background: var(--tag-bg); border-radius: 2px; overflow: hidden; }
+  .skill-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3rem; }
+  .process-step { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 1.3rem; }
+  .process-num { font-family: var(--serif); font-size: 2.5rem; color: var(--accent-light); line-height: 1; margin-bottom: 1rem; font-weight: 400; }
+  .process-step-title { font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+  .process-step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+  .testimonials { background: var(--surface); border-radius: 24px; padding: 4rem; border: 1px solid var(--border); }
+  .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .testimonial-card { background: var(--bg); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); }
+  .testimonial-stars { color: #F59E0B; font-size: 0.8rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testimonial-text { font-size: 0.875rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; font-family: var(--serif); font-weight: 400; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+  .author-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; }
+  .author-name { font-size: 0.82rem; font-weight: 500; color: var(--text); }
+  .author-role { font-size: 0.72rem; color: var(--muted); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-left h2 { font-family: var(--serif); font-size: clamp(1.8rem,3vw,2.4rem); font-weight: 400; line-height: 1.2; margin-bottom: 1rem; }
+  .contact-left p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+  .contact-info { display: flex; flex-direction: column; gap: 0.8rem; }
+  .contact-info-item { display: flex; align-items: center; gap: 0.8rem; font-size: 0.875rem; color: var(--muted); }
+  .contact-info-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 0.85rem; flex-shrink: 0; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+  .form-group input, .form-group textarea, .form-group select { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; font-family: var(--sans); font-size: 0.875rem; color: var(--text); outline: none; transition: border-color 0.2s; width: 100%; resize: none; -webkit-appearance: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(45,91,227,0.08); }
+  .form-group textarea { height: 120px; }
+  .submit-btn { background: var(--text); color: #fff; border: none; padding: 0.85rem 2rem; border-radius: 100px; font-family: var(--sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s; align-self: flex-start; }
+  .submit-btn:hover { opacity: 0.8; }
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; display: flex; align-items: center; justify-content: space-between; max-width: 1080px; margin: 0 auto; }
+  .footer-logo { font-family: var(--serif); font-size: 1rem; color: var(--text); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-left { animation: fadeUp 0.7s ease forwards; }
+  .hero-visual { animation: fadeUp 0.7s 0.15s ease both; }
+  @media (max-width: 760px) {
+    nav { padding: 0 1rem; }
+    .nav-links li:not(:last-child) { display: none; }
+    section { padding: 4rem 1rem; }
+    .hero { grid-template-columns: 1fr; padding-top: 3rem; }
+    .hero-visual { height: 300px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .case-card.featured { grid-column: auto; grid-template-columns: 1fr; }
+    .case-card.featured .case-thumb { height: 220px; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-exp-badge { right: 0; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+ 
+<nav>
+  <a class="nav-logo" href="#">Anjali Bharti</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+  </ul>
+</nav>
+ 
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Product &amp; UI Designer</p>
+    <h1>Designing <em>clarity</em> into complex products</h1>
+    <p>I help startups and scale-ups turn complicated ideas into intuitive, beautiful digital experiences — from early concept to polished production.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View my work</a>
+      <a href="#contact" class="btn-secondary">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-main">
+      <div class="mock-screen">
+        <div class="mock-screen-inner">
+          <div class="mock-topbar">
+            <div class="mock-dot" style="background:#FF5F57"></div>
+            <div class="mock-dot" style="background:#FEBC2E"></div>
+            <div class="mock-dot" style="background:#28C840"></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-bar" style="width:60%"></div>
+            <div class="mock-bar" style="width:40%"></div>
+            <div class="mock-card-row">
+              <div class="mock-mini-card"></div>
+              <div class="mock-mini-card" style="background:linear-gradient(135deg,#FEF3E2,#FDD89A)"></div>
+            </div>
+            <div class="mock-bar" style="width:80%;margin-top:4px"></div>
+            <div class="mock-bar" style="width:55%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card-meta">
+        <div>
+          <div class="hero-card-label">FinTrack Dashboard</div>
+          <div class="hero-card-sub">Product Design · 2024</div>
+        </div>
+        <span class="hero-badge">Live ↗</span>
+      </div>
+      <div class="hero-card-stats">
+        <div class="stat-item"><div class="stat-num">+38%</div><div class="stat-lbl">Retention</div></div>
+        <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-lbl">App Store</div></div>
+        <div class="stat-item"><div class="stat-num">2.4M</div><div class="stat-lbl">Users</div></div>
+      </div>
+    </div>
+    <div class="hero-card-small">
+      <div style="display:flex;align-items:center;margin-bottom:6px">
+        <span class="availability-dot"></span>
+        <span class="availability-text">Available for work</span>
+      </div>
+      <div class="availability-sub">Open to full-time &amp; freelance roles</div>
+    </div>
+  </div>
+</section>
+ 
+<hr class="divider"/>
+ 
+<section id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Selected work</div>
+      <h2 class="section-title">Case studies</h2>
+    </div>
+    <a href="#" class="section-link">All projects →</a>
+  </div>
+  <div class="work-grid">
+ 
+    <!-- LUXMART - Featured Real Project -->
+    <a href="https://anjalibharti6338-debug.github.io/luxmart-store/" target="_blank" class="case-card featured">
+      <div class="case-thumb" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);position:relative;overflow:hidden;">
+        <!-- Luxmart mock UI -->
+        <div style="width:78%;height:78%;background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,0.35);display:flex;flex-direction:column;overflow:hidden;">
+          <div style="background:#1a1a2e;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;">LUXMART</span>
+            <div style="display:flex;gap:8px;">
+              <div style="width:28px;height:6px;border-radius:3px;background:rgba(255,255,255,0.3)"></div>
+              <div style="width:28px;height:6px;border-radius:3px;background:rgba(255,255,255,0.3)"></div>
+              <div style="width:20px;height:6px;border-radius:3px;background:rgba(255,255,255,0.3)"></div>
+            </div>
+          </div>
+          <div style="padding:10px 12px;flex:1;background:#f8f8f8;">
+            <div style="background:#1a1a2e;border-radius:6px;padding:8px 10px;margin-bottom:8px;text-align:center;">
+              <div style="font-size:8px;color:#ccc;letter-spacing:1px;">NEW COLLECTION 2025</div>
+              <div style="font-size:10px;color:#fff;font-weight:700;margin-top:2px;">Shop the finest products</div>
+            </div>
+            <div style="display:flex;gap:5px;">
+              <div style="flex:1;background:#fff;border-radius:6px;padding:6px;border:1px solid #eee;">
+                <div style="height:28px;background:linear-gradient(135deg,#e8e8f0,#d0d0e8);border-radius:4px;margin-bottom:4px;"></div>
+                <div style="height:5px;background:#eee;border-radius:2px;width:80%;"></div>
+                <div style="height:5px;background:#1a1a2e;border-radius:2px;width:50%;margin-top:3px;"></div>
+              </div>
+              <div style="flex:1;background:#fff;border-radius:6px;padding:6px;border:1px solid #eee;">
+                <div style="height:28px;background:linear-gradient(135deg,#f0e8e8,#e8d0d0);border-radius:4px;margin-bottom:4px;"></div>
+                <div style="height:5px;background:#eee;border-radius:2px;width:80%;"></div>
+                <div style="height:5px;background:#1a1a2e;border-radius:2px;width:50%;margin-top:3px;"></div>
+              </div>
+              <div style="flex:1;background:#fff;border-radius:6px;padding:6px;border:1px solid #eee;">
+                <div style="height:28px;background:linear-gradient(135deg,#e8f0e8,#d0e8d0);border-radius:4px;margin-bottom:4px;"></div>
+                <div style="height:5px;background:#eee;border-radius:2px;width:80%;"></div>
+                <div style="height:5px;background:#1a1a2e;border-radius:2px;width:50%;margin-top:3px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Live badge overlay -->
+        <div style="position:absolute;top:14px;right:14px;background:#22C55E;color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:1px;">LIVE ↗</div>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">E-Commerce · 2025</div>
+        <h3 class="case-title">LUXMART — Premium E-Commerce Store</h3>
+        <p class="case-desc">Full-featured premium shopping website with 2000+ products across Electronics, Fashion, Home, Beauty & Sports. Includes cart, wishlist, checkout with UPI/COD, admin dashboard, coupon system, and order tracking. Built entirely from scratch.</p>
+        <div class="case-footer">
+          <div class="case-tags-row">
+            <span class="tag">E-Commerce</span>
+            <span class="tag">UI Design</span>
+            <span class="tag">Admin Panel</span>
+            <span class="tag">Full Stack</span>
+          </div>
+          <span class="case-arrow">↗</span>
+        </div>
+      </div>
+    </a>
+ 
+    <!-- Placeholder card 2 -->
+    <a href="#" class="case-card">
+      <div class="case-thumb" style="background:linear-gradient(135deg,#EEF2FD 0%,#D6E4FF 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;color:#2D5BE3;opacity:0.4;">
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">+</div>
+          <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.05em;">Coming Soon</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">Next Project</div>
+        <h3 class="case-title">More projects coming soon</h3>
+        <p class="case-desc">Currently working on new design projects. Stay tuned for more case studies and live websites.</p>
+        <div class="case-footer">
+          <div class="case-tags-row"><span class="tag">In Progress</span></div>
+          <span class="case-arrow">→</span>
+        </div>
+      </div>
+    </a>
+ 
+    <!-- Placeholder card 3 -->
+    <a href="mailto:anjalibharti63338@gmail.com" class="case-card">
+      <div class="case-thumb" style="background:linear-gradient(135deg,#FEF3E2 0%,#FDD89A 100%);display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;color:#854F0B;opacity:0.5;">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">✉</div>
+          <div style="font-size:0.75rem;font-weight:500;letter-spacing:0.05em;">Hire Me</div>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="case-tag">Freelance · Open</div>
+        <h3 class="case-title">Have a project in mind?</h3>
+        <p class="case-desc">I'm available for freelance and contract work. Let's collaborate to build your next website or digital product.</p>
+        <div class="case-footer">
+          <div class="case-tags-row"><span class="tag">Hire Me</span><span class="tag">Freelance</span></div>
+          <span class="case-arrow">→</span>
+        </div>
+      </div>
+    </a>
+ 
+  </div>
+</section>
+ 
+<hr class="divider"/>
+ 
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo">
+        <svg style="width:70%" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="85" rx="42" ry="44" fill="#2D5BE3" opacity="0.12"/>
+          <ellipse cx="100" cy="82" rx="34" ry="36" fill="#2D5BE3" opacity="0.18"/>
+          <ellipse cx="100" cy="190" rx="70" ry="55" fill="#2D5BE3" opacity="0.1"/>
+          <ellipse cx="100" cy="185" rx="55" ry="44" fill="#2D5BE3" opacity="0.14"/>
+        </svg>
+      </div>
+      <div class="about-exp-badge">
+        <div class="about-exp-num">6+</div>
+        <div class="about-exp-label">Years experience</div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-eyebrow">About me</div>
+      <h2>Designer at heart, <em style="font-style:italic;color:var(--accent)">systems thinker</em> by nature</h2>
+      <p>I'm Anjali Bharti, a product and UI designer based in San Francisco. I specialize in designing digital products that balance business goals with genuine human needs.</p>
+      <p>Previously at Stripe, Figma, and a handful of early-stage startups. I bring a structured, research-first approach to every project — but I'm equally comfortable rolling up my sleeves in a fast-moving team.</p>
+      <p>When I'm not designing, I'm probably teaching workshops on design systems, hiking somewhere with bad cell service, or overcooking pasta.</p>
+      <div class="skills-grid">
+        <div class="skill-item"><div class="skill-label">Product Design</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div></div>
+        <div class="skill-item"><div class="skill-label">Design Systems</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><div class="skill-label">User Research</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-label">Prototyping</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div></div>
+        <div class="skill-item"><div class="skill-label">Figma / FigJam</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:98%"></div></div></div>
+        <div class="skill-item"><div class="skill-label">Front-end (HTML/CSS)</div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<hr class="divider"/>
+ 
+<section id="process">
+  <div class="section-eyebrow">How I work</div>
+  <h2 class="section-title">My design process</h2>
+  <div class="process-grid">
+    <div class="process-step"><div class="process-num">01</div><div class="process-step-title">Discover</div><div class="process-step-desc">User interviews, competitive audits, and stakeholder alignment to understand the real problem before touching a frame.</div></div>
+    <div class="process-step"><div class="process-num">02</div><div class="process-step-title">Define</div><div class="process-step-desc">Synthesis, jobs-to-be-done mapping, and clear success metrics that keep the team focused throughout the project.</div></div>
+    <div class="process-step"><div class="process-num">03</div><div class="process-step-title">Design</div><div class="process-step-desc">Lo-fi explorations → tested prototypes → pixel-perfect handoff. I design in the open, sharing early and iterating fast.</div></div>
+    <div class="process-step"><div class="process-num">04</div><div class="process-step-title">Deliver</div><div class="process-step-desc">Annotated specs, design tokens, and close collaboration with engineers through launch — and beyond.</div></div>
+  </div>
+</section>
+ 
+<div style="padding:0 2rem 6rem;max-width:1080px;margin:0 auto;">
+  <div class="testimonials">
+    <div class="section-eyebrow">What people say</div>
+    <h2 class="section-title">From colleagues &amp; clients</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Alex has this rare ability to make complex problems feel completely solvable. The FinTrack redesign exceeded every metric we set."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:#EEF2FD;color:#2D5BE3;">JL</div>
+          <div><div class="author-name">Jamie Liu</div><div class="author-role">CPO, FinTrack</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"One of the most structured design thinkers I've worked with. Alex delivers clarity where there was none — consistently."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:#EDFAF3;color:#0F6E56;">SK</div>
+          <div><div class="author-name">Sara Kim</div><div class="author-role">VP Design, Relay</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Working with Alex felt less like hiring a designer and more like having a product co-founder. The thinking is always several steps ahead."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:#FEF3E2;color:#854F0B;">MR</div>
+          <div><div class="author-name">Marcus Rey</div><div class="author-role">Founder, Pulse Health</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left">
+      <div class="section-eyebrow">Contact</div>
+      <h2>Let's build something great together</h2>
+      <p>Whether you have a project in mind, a role to fill, or just want to talk design — my inbox is always open.</p>
+      <div class="contact-info">
+        <div class="contact-info-item"><div class="contact-info-icon">✉</div><span>anjalibharti63338@gmail.com</span></div>
+        <div class="contact-info-item"><div class="contact-info-icon">📍</div><span>Greater Noida West, UP 201308</span></div>
+        <div class="contact-info-item"><div class="contact-info-icon">🕐</div><span>Usually replies within 24 hours</span></div>
+      </div>
+    </div>
+    <div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group"><label for="name">Name</label><input type="text" id="name" placeholder="Your name"/></div>
+          <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="you@company.com"/></div>
+        </div>
+        <div class="form-group">
+          <label for="type">Project type</label>
+          <select id="type">
+            <option value="">Select a type...</option>
+            <option>Product Design</option>
+            <option>Design System</option>
+            <option>UX Audit</option>
+            <option>Freelance / Contract</option>
+            <option>Full-time Role</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell me about your project or opportunity..."></textarea></div>
+        <button type="submit" class="submit-btn" id="submitBtn">Send message →</button>
+        <div id="formSuccess" style="display:none;color:#1A7A44;font-size:0.875rem;padding:0.5rem 0;">Message sent! I'll get back to you soon.</div>
+      </form>
+    </div>
+  </div>
+</section>
+ 
+<hr class="divider"/>
+<footer>
+  <span class="footer-logo">Anjali Bharti</span>
+  <div class="footer-links">
+    <a href="#">Dribbble</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Read.cv</a>
+    <a href="#">Twitter/X</a>
+  </div>
+  <span class="footer-copy">© 2026 Anjali Bharti</span>
+</footer>
+ 
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(function() {
+    btn.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }, 900);
+}
+</script>
+</body>
+</html>
